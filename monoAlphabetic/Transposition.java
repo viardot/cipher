@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 public class Transposition extends Cipher{
     
     private int collumns;
@@ -13,16 +15,16 @@ public class Transposition extends Cipher{
     @Override
     public String encrypt(String plain){
         String cipher = "";
-        int cel = 0;
-        int col = 0;
+        int i = 0;
+        int j = 0;
 
-        while (cipher.length() < plain.length()){
-            cipher = cipher + plain.substring(cel, cel + 1);
-            if ( cel + collumns >= plain.length()) {
-               col++;
-               cel = col;
+        while ( cipher.length() < plain.length() ) {
+            cipher = cipher + plain.substring(i, i+1);
+            if ( i + collumns >= plain.length() ) {
+               j++;
+               i = j;
             } else {
-               cel = cel + collumns;
+               i = i + collumns;
             }
             
         }
@@ -33,6 +35,30 @@ public class Transposition extends Cipher{
     @Override
     public String decrypt(String cipher){
         String plain="";
+        int i = 0;
+        int j = 0;
+        int rows = (int) Math.ceil(cipher.length() / (double) collumns);
+        int lastRow = cipher.length() % collumns;
+
+        while ( plain.length() < cipher.length() ) {
+
+            for (int k = 0; k < lastRow; k++){
+                plain = plain + cipher.substring(i, i+1);
+                i = i + rows;
+            }
+            if ( plain.length() != cipher.length()) {
+                for (int l = 0; l < collumns - lastRow; l++){
+                    plain = plain + cipher.substring(i, i+1);
+                    if (lastRow != 0){
+                        i = i + rows - 1;
+                    }else{
+                        i = i + rows;
+                    }    
+                }
+            }
+            j++;
+            i=j; 
+        }
 
         return plain;
     }

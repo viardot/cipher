@@ -15,6 +15,8 @@ public class Main {
         }
 
         transposition("COMPUTERGRAPHICSMAYBESLOWBUTATLEASTITSEXPENSIVE");
+        
+        greatesCommonDiviser(900, 1140);
     }
 
     static private void shift(String plain){
@@ -42,7 +44,14 @@ public class Main {
     
     static private void transposition(String plain){
         Transposition cipher = new Transposition();
-        System.out.println(plain + " => " + cipher.encrypt(plain)+ " => ");
+        System.out.println(plain + " => " + cipher.encrypt(plain)+ " => " + cipher.decrypt(cipher.encrypt(plain)));
+    }
+
+    static private void greatesCommonDiviser(int a, int b){
+        
+        int[] result = (utils.gcdExtended(a, b));
+        System.out.println(utils.gcd(a, b) +" = " + result[1] + " * " + a + " + " + result[2] + " * " + b);
+
     }
 
 
